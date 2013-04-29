@@ -11,10 +11,12 @@ import android.widget.Toast;
 public class Receiver extends BroadcastReceiver {
 	
 	Bundle bundle;
+	Context context;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
+		this.context= context;
 		 SmsMessage[] msgs = null;
 		bundle = intent.getExtras();
 		String str = "";
@@ -41,7 +43,10 @@ public class Receiver extends BroadcastReceiver {
 	                //else
 	                //	Log.d("MSG    ", "Not Equal   "+msgs[i].getDisplayOriginatingAddress());
 	                	
-	                
+	                MyCalendar cal =  new MyCalendar(context);
+	                cal.AddEvent(123, 123);
+	                cal.ModifyEvent();
+	                //cal.DeleteEvent();
 	            }
 		}
 
