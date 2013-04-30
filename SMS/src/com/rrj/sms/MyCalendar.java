@@ -23,6 +23,12 @@ public class MyCalendar {
 	    Instances.BEGIN,         // 1
 	    Instances.TITLE          // 2
 	  };
+	
+	public static final String[] CALENDAR_PROJECTION = new String[] {
+		CalendarContract.Calendars._ID,
+		CalendarContract.Calendars.ACCOUNT_NAME,
+		CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
+	};
 	  
 	// The indices for the projection array above.
 	private static final int PROJECTION_ID_INDEX = 0;
@@ -47,19 +53,25 @@ public class MyCalendar {
 	
 	public void AddEvent(long startTime,long endTime)
 	{
-		beginTime.set(2013, 5, 5, 7, 30);
+		beginTime.set(2013,12, 20, 9, 30);
+		Log.d("Time"," time si  "+beginTime.getTime().toString());
 		startMillis = beginTime.getTimeInMillis();
 		Calendar endTime1 = Calendar.getInstance();
-		endTime1.set(2013, 5, 5, 13, 45);
+		endTime1.set(2013,10, 20, 11, 45);
 		endMillis = endTime1.getTimeInMillis();
-	
+//		beginTime.set(2012, 9, 14, 7, 30);
+//		startMillis = beginTime.getTimeInMillis();
+//		Calendar endTime1 = Calendar.getInstance();
+//		endTime1.set(2013, 4, 26, 8, 45);
+//		endMillis = endTime1.getTimeInMillis();
+//	
 		ContentResolver cr = ctx.getContentResolver();
 		ContentValues values = new ContentValues();
 		values.put(CalendarContract.Events.DTSTART, startMillis);
 		values.put(CalendarContract.Events.DTEND, endMillis);
 		values.put(CalendarContract.Events.TITLE, "Election");
 		values.put(CalendarContract.Events.DESCRIPTION, "Election");
-		values.put(CalendarContract.Events.CALENDAR_ID, 3);
+		values.put(CalendarContract.Events.CALENDAR_ID, 1);
 		values.put(CalendarContract.Events.EVENT_TIMEZONE,"India/Delhi");
 		Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
 
@@ -127,6 +139,24 @@ public class MyCalendar {
 		    Log.d("hello", "Event Id  "+eventID);
 		    }
 
+	}
+	
+	public void GetCalender()
+	{
+		 ContentResolver contentResolver = ctx.getContentResolver();
+	        Log.d("MainActivity.TAG", "URI = " + CalendarContract.Calendars.CONTENT_URI);
+	        final Cursor cursor = contentResolver.query(CalendarContract.Calendars.CONTENT_URI,
+	        		CALENDAR_PROJECTION, null, null, null);
+	        Log.d("MainActivity.TAG", "cursor = " + cursor);
+	        while (cursor.moveToNext()) {
+	        final String _id = cursor.getString(0);
+	        final String displayName = cursor.getString(1);
+//	        final Boolean selected = !cursor.getString(2).equals("0");
+//	        final String accountName = cursor.getString(3);
+	        Log.d("MainActivity.TAG", "Found calendar " + "Display Name"+displayName+"Id"+ _id);
+	       // calendarList.append(
+	        //"Calendar: Id: " + _id + " Display Name: " + displayName + " Selected: " + selected + " Name " + accountName);
+	        }
 	}
 	
 }

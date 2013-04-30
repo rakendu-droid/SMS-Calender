@@ -32,20 +32,21 @@ public class Receiver extends BroadcastReceiver {
 				 	Log.d("MSG    ", "msg   "+msgs.toString());
 	                msgs[i] = SmsMessage.createFromPdu((byte[])pDus[i]);
 	                // In case of a particular App / Service.
-	               // if(msgs[i].getOriginatingAddress().equals("9980005928"))
-	              //  {
+	                if(msgs[i].getOriginatingAddress().equals("9980005928"))
+	                {
 	                	str += msgs[i].getMessageBody().toString();
 	                	str += "\n";
 	                	Toast.makeText(context, str, Toast.LENGTH_LONG).show();
 	                	Log.d("MSG    ", "Equal   "+msgs[i].getDisplayOriginatingAddress());
 	                	Parse(str);
-	               // }
-	                //else
-	                //	Log.d("MSG    ", "Not Equal   "+msgs[i].getDisplayOriginatingAddress());
+	                }
+	                else
+	                	Log.d("MSG    ", "Not Equal   "+msgs[i].getDisplayOriginatingAddress());
 	                	
 	                MyCalendar cal =  new MyCalendar(context);
+	                cal.GetCalender();
 	                cal.AddEvent(123, 123);
-	                cal.ModifyEvent();
+	                //cal.ModifyEvent();
 	                //cal.DeleteEvent();
 	            }
 		}
