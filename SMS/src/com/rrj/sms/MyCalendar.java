@@ -29,6 +29,12 @@ public class MyCalendar {
 		CalendarContract.Calendars.ACCOUNT_NAME,
 		CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
 	};
+	
+	public static final String[] EVENT_PROJECTION = new String[] {
+		CalendarContract.Events._ID,
+		CalendarContract.Events.TITLE,
+		CalendarContract.Events.EVENT_COLOR
+	};
 	  
 	// The indices for the projection array above.
 	private static final int PROJECTION_ID_INDEX = 0;
@@ -40,25 +46,51 @@ public class MyCalendar {
 	private long startMills=0;
 	private long endMills=0;
 	
-	long startMillis = 0;
-	long endMillis = 0;
+	private long startMillis = 0;
+	private long endMillis = 0;
 	Calendar beginTime = Calendar.getInstance();
 	Context ctx;
 	String eventID;
+	
+	
 	
 	MyCalendar(Context context)
 	{
 		ctx= context;
 	}
 	
-	public void AddEvent(long startTime,long endTime)
+	
+	
+	public long getStartMills() {
+		return startMills;
+	}
+
+	public void setStartMills(long startMills) {
+		this.startMills = startMills;
+	}
+	
+	
+
+	public long getEndMills() {
+		return endMills;
+	}
+
+	public void setEndMills(long endMills) {
+		this.endMills = endMills;
+	}
+
+	
+	
+	
+	
+	public void AddEvent(long startTime,long endTime, String name, String desc)
 	{
-		beginTime.set(2013,12, 20, 9, 30);
-		Log.d("Time"," time si  "+beginTime.getTime().toString());
-		startMillis = beginTime.getTimeInMillis();
-		Calendar endTime1 = Calendar.getInstance();
-		endTime1.set(2013,10, 20, 11, 45);
-		endMillis = endTime1.getTimeInMillis();
+//		beginTime.set(2013,12, 20, 9, 30);
+//		Log.d("Time"," time si  "+beginTime.getTime().toString());
+//		startMillis = beginTime.getTimeInMillis();
+//		Calendar endTime1 = Calendar.getInstance();
+//		endTime1.set(2013,10, 20, 11, 45);
+//		endMillis = endTime1.getTimeInMillis();
 //		beginTime.set(2012, 9, 14, 7, 30);
 //		startMillis = beginTime.getTimeInMillis();
 //		Calendar endTime1 = Calendar.getInstance();
@@ -67,10 +99,10 @@ public class MyCalendar {
 //	
 		ContentResolver cr = ctx.getContentResolver();
 		ContentValues values = new ContentValues();
-		values.put(CalendarContract.Events.DTSTART, startMillis);
-		values.put(CalendarContract.Events.DTEND, endMillis);
-		values.put(CalendarContract.Events.TITLE, "Election");
-		values.put(CalendarContract.Events.DESCRIPTION, "Election");
+		values.put(CalendarContract.Events.DTSTART, startTime);
+		values.put(CalendarContract.Events.DTEND, endTime);
+		values.put(CalendarContract.Events.TITLE, name);
+		values.put(CalendarContract.Events.DESCRIPTION, desc);
 		values.put(CalendarContract.Events.CALENDAR_ID, 1);
 		values.put(CalendarContract.Events.EVENT_TIMEZONE,"India/Delhi");
 		Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
@@ -83,12 +115,11 @@ public class MyCalendar {
 	public void DeleteEvent()
 	{
 		long event = Long.parseLong(eventID);
-		
 		ContentResolver cr = ctx.getContentResolver();
 		ContentValues values = new ContentValues();
 		Uri deleteUri = null;
-		deleteUri = ContentUris.withAppendedId(Events.CONTENT_URI, event);
-		int rows = ctx.getContentResolver().delete(deleteUri, null, null);
+		deleteUri = ContentUris.withAppendedId(Events.CONTENT_URI, 311);
+		int rows = cr.delete(deleteUri, null, null);
 		Log.i("DEBUG_TAG", "Rows deleted: " + rows); 
 	}
 	
@@ -157,6 +188,24 @@ public class MyCalendar {
 	       // calendarList.append(
 	        //"Calendar: Id: " + _id + " Display Name: " + displayName + " Selected: " + selected + " Name " + accountName);
 	        }
+	}
+	
+	public void GetEvent()
+	{
+		ContentResolver contentResolver = ctx.getContentResolver();
+		
+		final Cursor cursor = contentResolver.query(CalendarContract.Events.CONTENT_URI, EVENT_PROJECTION, null, null, null);
+		 while (cursor.moveToNext()) {
+		        final String _id = cursor.getString(0);
+		        final String title = cursor.getString(1);
+//		        final Boolean selected = !cursor.getString(2).equals("0");
+//		        final String accountName = cursor.getString(3);
+		        Log.d("MainActivity.TAG", "Found calendar " + "Display Name"+title+"Id"+ _id);
+		        eventID= _id;
+		        // calendarList.append(
+		        //"Calendar: Id: " + _id + " Display Name: " + displayName + " Selected: " + selected + " Name " + accountName);
+		       
+		 }
 	}
 	
 }

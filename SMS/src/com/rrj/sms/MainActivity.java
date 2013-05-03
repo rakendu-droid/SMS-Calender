@@ -39,6 +39,11 @@ public class MainActivity extends Activity {
 					date = newFormat.parse(textDate);
 					Toast.makeText(getApplicationContext(), "Date "+date, Toast.LENGTH_LONG).show();
 					t1.setText(date.toString());
+					MyCalendar cal =new MyCalendar(getApplicationContext());
+					cal.GetEvent();
+					
+					
+					
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
