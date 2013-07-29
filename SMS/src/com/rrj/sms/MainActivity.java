@@ -6,6 +6,7 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,16 +35,15 @@ public class MainActivity extends Activity {
 				SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
 				
 				try {
-					Date date = sdf.parse("21 Apr 2013 - 11.30");
+                    Date date1 = new Date();
+                    Log.d("Tag",date1.toString());
+                    Date date = sdf.parse(date1.toString());
 					String textDate = newFormat.format(date);
 					date = newFormat.parse(textDate);
-					Toast.makeText(getApplicationContext(), "Date "+date, Toast.LENGTH_LONG).show();
-					t1.setText(date.toString());
+					Toast.makeText(getApplicationContext(), "Date "+date1, Toast.LENGTH_LONG).show();
+					t1.setText(date1.toString());
 					MyCalendar cal =new MyCalendar(getApplicationContext());
 					cal.GetEvent();
-					
-					
-					
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

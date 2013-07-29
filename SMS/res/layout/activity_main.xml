@@ -6,26 +6,92 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="90dp"
-        android:text="@string/hello_world" />
+        android:textSize="@dimen/text_size"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/back"
+        android:singleLine="true"
+        android:gravity="center"
+        android:text="@string/southside"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+              android:id="@+id/name_label"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/name"
+              android:layout_below="@id/textView1"
+              android:textSize="@dimen/form_text"
+              android:layout_marginBottom="20dp"
+              android:layout_marginTop="20dp" />
+
+    <EditText
+            android:id="@+id/name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/name_label"
+            android:layout_toRightOf="@id/name_label"
+            android:layout_alignParentRight="true"
+             />
+
+    <TextView
+              android:id="@+id/for_label"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/time"
+              android:layout_below="@id/name_label"
+              android:textSize="@dimen/form_text"
+              android:layout_marginTop="20dp"/>
+
+    <EditText
+            android:id="@+id/for"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/for_label"
+            android:layout_toRightOf="@id/for_label"
+            android:layout_alignParentRight="true"/>
+
+
+    <TextView
+            android:id="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:layout_below="@id/for_label"
+            android:textSize="@dimen/form_text"
+            android:layout_marginTop="20dp"/>
+
+    <EditText
+            android:id="@+id/date"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/date_label"
+            android:layout_toRightOf="@id/date_label"
+            />
 
     <Button
+            android:id="@+id/btndate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/date"
+            android:layout_alignBaseline="@id/date"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="50dp"
+            android:layout_alignParentRight="true"
+            android:text="date" />
+
+        <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="50dp"
-        android:text="Button" />
+        android:layout_below="@id/date_label"
+        android:text="test"
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>
