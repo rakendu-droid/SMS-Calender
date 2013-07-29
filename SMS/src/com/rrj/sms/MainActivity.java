@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,7 +18,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
-	Button b1;
+	Button b1,btnDate;
 	TextView t1;
 
 	@Override
@@ -25,7 +27,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		b1=(Button)findViewById(R.id.button1);
 		t1=(TextView)findViewById(R.id.textView1);
-		
+        btnDate = (Button)findViewById(R.id.btndate);
 		b1.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -50,6 +52,14 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
+
+        btnDate.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getFragmentManager(),"datePicker");
+            }
+        });
 	}
 
 	@Override
