@@ -13,7 +13,7 @@ import java.util.Calendar;
 /**
  * Created by rakendu.jois on 7/29/13.
  */
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class DatePickerFragment extends DialogFragment{
 
 
 
@@ -22,13 +22,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return new DatePickerDialog(getActivity(),(MainActivity)getActivity(),year,month,day);
+
     }
-    public void onDateSet(DatePicker view, int year, int month, int day)
-    {
-        Log.d("SMS","Date and time................."+year+"   "+month+"   "+day);
-        Toast.makeText(getActivity(),"Date Picked"+year+month+day,Toast.LENGTH_LONG).show();
-    }
+
 
 
 

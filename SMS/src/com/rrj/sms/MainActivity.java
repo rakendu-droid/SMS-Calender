@@ -1,9 +1,5 @@
 package com.rrj.sms;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
@@ -13,14 +9,23 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.lang.String;
+
+public class MainActivity extends Activity implements DatePickerDialog.OnDateSetListener {
 	
 	Button b1,btnDate;
 	TextView t1;
-
+    EditText editName,editDate,editTime,editMonth,editYear;
+    String name;
+    int day,time,month,year;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,5 +73,17 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
+    public void onDateSet(DatePicker view, int year, int month, int day)
+    {
+        Log.d("SMS","Date and time................."+year+"   "+month+"   "+day);
+        Toast.makeText(this,"Date Picked"+year+month+day,Toast.LENGTH_LONG).show();
+        this.year=year;
+        this.month=month;
+        this.day=day;
+        editDate.setText(""+day+"/"+month+"/"+year);
+
+
+    }
 
 }

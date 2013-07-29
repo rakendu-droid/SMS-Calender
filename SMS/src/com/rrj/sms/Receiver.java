@@ -99,8 +99,7 @@ public class Receiver extends BroadcastReceiver {
 			//cal.set(2013, 03, 21, 12, 30);
 			endMilis = cal.getTimeInMillis();
 			//Log.d("Tag", "  "+cal.toString()+"   "+startMilis);
-		
-	}
+			}
 		catch (Exception e) {
 			Log.d("Exception", e.getMessage());
 		}
