@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.support.v4.app.FragmentActivity;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +35,7 @@ public class MainActivity extends Activity implements DatePickerDialog.OnDateSet
 		b1=(Button)findViewById(R.id.button1);
 		t1=(TextView)findViewById(R.id.textView1);
         btnDate = (Button)findViewById(R.id.btndate);
+        editDate= (EditText)findViewById(R.id.date);
 		b1.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -61,8 +64,8 @@ public class MainActivity extends Activity implements DatePickerDialog.OnDateSet
         btnDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getFragmentManager(),"datePicker");
+                DatePickerFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(),"datePicker");
             }
         });
 	}
@@ -77,11 +80,11 @@ public class MainActivity extends Activity implements DatePickerDialog.OnDateSet
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
         Log.d("SMS","Date and time................."+year+"   "+month+"   "+day);
-        Toast.makeText(this,"Date Picked"+year+month+day,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"Date Picked"+year+month+day,Toast.LENGTH_LONG).show();
         this.year=year;
         this.month=month;
-        this.day=day;
-        editDate.setText(""+day+"/"+month+"/"+year);
+        //this.day=day;
+        editDate.setText(""+this.day+"/"+this.month+"/"+this.year);
 
 
     }
