@@ -1,9 +1,5 @@
 package com.rrj.sms;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +7,12 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import android.app.Application;
 
 public class Receiver extends BroadcastReceiver {
 	
@@ -45,9 +47,7 @@ public class Receiver extends BroadcastReceiver {
 	                	Toast.makeText(context, str, Toast.LENGTH_LONG).show();
 	                	Log.d("MSG    ", "Equal   "+msgs[i].getDisplayOriginatingAddress());
 	                	Parse(str);
-		                MyCalendar cal =  new MyCalendar(context);
-//	 	               // cal.GetCalender();
-	 	                cal.AddEvent(startMilis, endMilis,name,desc);
+
 //	 	                cal.ModifyEvent();
 //	 	                cal.DeleteEvent();
 	                	
@@ -67,43 +67,62 @@ public class Receiver extends BroadcastReceiver {
 		int bracketIndex = str.indexOf("[");
 		name = str.substring(nameIndex+4, bracketIndex);
 		String time = str.substring(timeIndex+2, locationIndex);
-		
 		desc = str.substring(bracketIndex+1, str.indexOf("]"));
-		long DateTime = formatter(time);
+
+        SimpleDateFormat sdf =new SimpleDateFormat("dd MMM yyyy - HH.mm");
+        Date dateTime = null;
+        try {
+            dateTime = sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Helloooooooooooo333333333333333"+dateTime);
+        formatter(dateTime);
 		Log.d("Tag", ""+desc);
+
 		
 		
 		
 	}
 	
-	public long formatter(String dateTime)
+	public void formatter(Date dateTime)
 	{
-		
-		
-		SimpleDateFormat sdf =new SimpleDateFormat("dd MMM yyyy - HH.mm");
 		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
-		
+        System.out.println("Helloooooooooooo");
+
+        Log.d("SMS","Formatter.................");
 		try {
-			
-			Date date = sdf.parse(dateTime);
-			Log.d("Tag", "  "+date+"   ");
-			textDate = newFormat.format(date);
-			
-			date = newFormat.parse(textDate);
+			Log.d("SMS", "Formatter dateime  "+dateTime+"   ");
+            System.out.println("Helloooooooooooo1111111111111");
+
+			textDate = newFormat.format(dateTime);
+            dateTime = newFormat.parse(textDate);
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
+            System.out.println("Helloooooooooooo"+dateTime.toString());
+			cal.setTime(dateTime);
 			startMilis = cal.getTimeInMillis();
-			date.setHours(date.getHours()+1);
-			cal.setTime(date);
-			Log.d("DateTime", "tag   "+cal.toString());
+            dateTime.setHours(dateTime.getHours()+1);
+            System.out.println("Helloooooooooooo11111111111112");
+			cal.setTime(dateTime);
+			Log.d("SMS", "tag   "+cal.toString());
+            System.out.println("Helloooooooooooo1111111111113");
 			//cal.set(2013, 03, 21, 12, 30);
 			endMilis = cal.getTimeInMillis();
-			//Log.d("Tag", "  "+cal.toString()+"   "+startMilis);
+			Log.d("SMS", "  "+cal.toString()+"   "+startMilis);
+            MyCalendar myCal =  new MyCalendar(this);
+            System.out.println("Helloooooooooooo1111111111114"+startMilis+"ENDDD  "+endMilis);
+//	 	               // cal.GetCalender();
+            name="ABC";
+            desc="ABDSS";
+            myCal.AddEvent(startMilis, endMilis,name,desc);
 			}
 		catch (Exception e) {
-			Log.d("Exception", e.getMessage());
+			Log.d("Exception", "e.getMessage()");
+
+
+
 		}
-		return startMilis;
+
 	}
 	
 

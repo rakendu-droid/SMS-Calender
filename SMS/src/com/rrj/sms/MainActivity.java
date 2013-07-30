@@ -13,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import android.support.v4.app.FragmentActivity;
 
 import java.text.ParseException;
@@ -21,13 +20,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.lang.String;
 
-public class MainActivity extends Activity implements DatePickerDialog.OnDateSetListener {
+public class MainActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
 	
 	Button b1,btnDate;
 	TextView t1;
     EditText editName,editDate,editTime,editMonth,editYear;
-    String name;
-    int day,time,month,year;
+    String name,time;
+    int day;
+    int month;
+    int year;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,28 +37,44 @@ public class MainActivity extends Activity implements DatePickerDialog.OnDateSet
 		t1=(TextView)findViewById(R.id.textView1);
         btnDate = (Button)findViewById(R.id.btndate);
         editDate= (EditText)findViewById(R.id.date);
+        editTime=(EditText)findViewById(R.id.forr);
 		b1.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				SimpleDateFormat sdf =new SimpleDateFormat("dd MMM yyyy - HH.mm");
-				SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
-				
-				try {
-                    Date date1 = new Date();
-                    Log.d("Tag",date1.toString());
-                    Date date = sdf.parse(date1.toString());
-					String textDate = newFormat.format(date);
-					date = newFormat.parse(textDate);
-					Toast.makeText(getApplicationContext(), "Date "+date1, Toast.LENGTH_LONG).show();
-					t1.setText(date1.toString());
-					MyCalendar cal =new MyCalendar(getApplicationContext());
-					cal.GetEvent();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+                time=editTime.getText().toString();
+
+                String stringDateTime= day+"/"+month+"/"+year+" "+time;
+                Log.d("SMS","Date and time................."+stringDateTime);
+                SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
+                try {
+                    Log.d("SMS","Try.................");
+                    Date dateTime= newFormat.parse(stringDateTime);
+                    Receiver rc= new Receiver();
+
+                    rc.formatter(dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+//				SimpleDateFormat sdf =new SimpleDateFormat("dd MMM yyyy - HH.mm");
+//				SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
+//
+//				try {
+//                    Date date1 = new Date();
+//                    Log.d("Tag",date1.toString());
+//                    Date date = sdf.parse(date1.toString());
+//					String textDate = newFormat.format(date);
+//					date = newFormat.parse(textDate);
+//					Toast.makeText(getApplicationContext(), "Date "+date1, Toast.LENGTH_LONG).show();
+//					t1.setText(date1.toString());
+//					MyCalendar cal =new MyCalendar(getApplicationContext());
+//					cal.GetEvent();
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 		});
 
@@ -79,12 +96,14 @@ public class MainActivity extends Activity implements DatePickerDialog.OnDateSet
 
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
-        Log.d("SMS","Date and time................."+year+"   "+month+"   "+day);
+        Log.d("SMS","Date................."+year+"   "+month+"   "+day);
         //Toast.makeText(this,"Date Picked"+year+month+day,Toast.LENGTH_LONG).show();
+
         this.year=year;
-        this.month=month;
-        //this.day=day;
-        editDate.setText(""+this.day+"/"+this.month+"/"+this.year);
+        this.month=month+1;
+        this.day=day;
+        editDate.setText(""+this.day+"/"+this.month+"/"+this.year+" ");
+
 
 
     }
