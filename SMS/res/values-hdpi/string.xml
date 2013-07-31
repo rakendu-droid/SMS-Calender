@@ -8,5 +8,6 @@
     <string name="name">Name</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="apfor">For</string>
 
 </resources>

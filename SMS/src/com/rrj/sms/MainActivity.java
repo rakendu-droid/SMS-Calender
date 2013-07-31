@@ -3,6 +3,7 @@ package com.rrj.sms;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,11 +25,11 @@ public class MainActivity extends FragmentActivity implements DatePickerDialog.O
 	
 	Button b1,btnDate;
 	TextView t1;
-    EditText editName,editDate,editTime,editMonth,editYear;
-    String name,time;
-    int day;
-    int month;
-    int year;
+    EditText editName,editDate,editTime,editFor;
+    String apFor,name,time;
+
+    int day,month,year;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,16 +37,18 @@ public class MainActivity extends FragmentActivity implements DatePickerDialog.O
 		b1=(Button)findViewById(R.id.button1);
 		t1=(TextView)findViewById(R.id.textView1);
         btnDate = (Button)findViewById(R.id.btndate);
+        editName=(EditText)findViewById(R.id.name);
         editDate= (EditText)findViewById(R.id.date);
         editTime=(EditText)findViewById(R.id.time);
+        editFor=(EditText)findViewById(R.id.apfor);
 		b1.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+                name=editName.getText().toString();
                 time=editTime.getText().toString();
-
+                apFor=editFor.getText().toString();
                 String stringDateTime= day+"/"+month+"/"+year+" "+time;
                 Log.d("SMS","Date and time................."+stringDateTime);
                 SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
@@ -53,11 +56,16 @@ public class MainActivity extends FragmentActivity implements DatePickerDialog.O
                     Log.d("SMS","Try.................");
                     Date dateTime= newFormat.parse(stringDateTime);
                     Receiver rc= new Receiver();
-
-                    rc.formatter(dateTime);
+                    Context context = getApplicationContext();
+                    rc.formatter(dateTime,context,name,apFor);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                editName.setText("");
+                editFor.setText("");
+                editDate.setText("");
+                editTime.setText("");
+                Toast.makeText(getApplicationContext(),"Added successfully",Toast.LENGTH_LONG).show();
 //				SimpleDateFormat sdf =new SimpleDateFormat("dd MMM yyyy - HH.mm");
 //				SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
 //

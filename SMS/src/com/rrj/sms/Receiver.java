@@ -18,7 +18,7 @@ public class Receiver extends BroadcastReceiver {
 	
 	Bundle bundle;
 	Context context;
-	String textDate,name,desc="Hello";
+	String textDate,name,apFor;
 	long startMilis,endMilis =0;
 
 	@Override
@@ -37,7 +37,6 @@ public class Receiver extends BroadcastReceiver {
 			
 			 for (int i=0; i<msgs.length; i++)
 	            {
-				 	Log.d("MSG    ", "msg   "+msgs.toString());
 	                msgs[i] = SmsMessage.createFromPdu((byte[])pDus[i]);
 	                // In case of a particular App / Service.
 	                if(msgs[i].getOriginatingAddress().equals("+919980005928"))
@@ -45,12 +44,11 @@ public class Receiver extends BroadcastReceiver {
 	                	str += msgs[i].getMessageBody().toString();
 	                	str += "\n";
 	                	Toast.makeText(context, str, Toast.LENGTH_LONG).show();
-	                	Log.d("MSG    ", "Equal   "+msgs[i].getDisplayOriginatingAddress());
 	                	Parse(str);
 
 //	 	                cal.ModifyEvent();
 //	 	                cal.DeleteEvent();
-	                	
+
 	                }
 	                else
 	                	Log.d("MSG    ", "Not Equal   "+msgs[i].getDisplayOriginatingAddress());
@@ -67,7 +65,7 @@ public class Receiver extends BroadcastReceiver {
 		int bracketIndex = str.indexOf("[");
 		name = str.substring(nameIndex+4, bracketIndex);
 		String time = str.substring(timeIndex+2, locationIndex);
-		desc = str.substring(bracketIndex+1, str.indexOf("]"));
+        apFor = str.substring(bracketIndex+1, str.indexOf("]"));
 
         SimpleDateFormat sdf =new SimpleDateFormat("dd MMM yyyy - HH.mm");
         Date dateTime = null;
@@ -76,9 +74,7 @@ public class Receiver extends BroadcastReceiver {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println("Helloooooooooooo333333333333333"+dateTime);
         formatter(dateTime);
-		Log.d("Tag", ""+desc);
 
 		
 		
@@ -88,33 +84,21 @@ public class Receiver extends BroadcastReceiver {
 	public void formatter(Date dateTime)
 	{
 		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
-        System.out.println("Helloooooooooooo");
 
-        Log.d("SMS","Formatter.................");
 		try {
-			Log.d("SMS", "Formatter dateime  "+dateTime+"   ");
-            System.out.println("Helloooooooooooo1111111111111");
 
 			textDate = newFormat.format(dateTime);
             dateTime = newFormat.parse(textDate);
 			Calendar cal = Calendar.getInstance();
-            System.out.println("Helloooooooooooo"+dateTime.toString());
 			cal.setTime(dateTime);
 			startMilis = cal.getTimeInMillis();
             dateTime.setHours(dateTime.getHours()+1);
-            System.out.println("Helloooooooooooo11111111111112");
 			cal.setTime(dateTime);
-			Log.d("SMS", "tag   "+cal.toString());
-            System.out.println("Helloooooooooooo1111111111113");
 			//cal.set(2013, 03, 21, 12, 30);
 			endMilis = cal.getTimeInMillis();
-			Log.d("SMS", "  "+cal.toString()+"   "+startMilis);
-            MyCalendar myCal =  new MyCalendar(this);
-            System.out.println("Helloooooooooooo1111111111114"+startMilis+"ENDDD  "+endMilis);
+            MyCalendar myCal =  new MyCalendar(context);
 //	 	               // cal.GetCalender();
-            name="ABC";
-            desc="ABDSS";
-            myCal.AddEvent(startMilis, endMilis,name,desc);
+            myCal.AddEvent(startMilis, endMilis,name,apFor);
 			}
 		catch (Exception e) {
 			Log.d("Exception", "e.getMessage()");
@@ -122,6 +106,28 @@ public class Receiver extends BroadcastReceiver {
 
 
 		}
+    }
+
+    public void formatter(Date dateTime,Context context,String name,String apFor)
+    {
+        SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy HH.mm");
+
+        try {
+            textDate = newFormat.format(dateTime);
+            dateTime = newFormat.parse(textDate);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dateTime);
+            startMilis = cal.getTimeInMillis();
+            dateTime.setHours(dateTime.getHours()+1);
+            cal.setTime(dateTime);
+            //cal.set(2013, 03, 21, 12, 30);
+            endMilis = cal.getTimeInMillis();
+            MyCalendar myCal =  new MyCalendar(context);
+            myCal.AddEvent(startMilis, endMilis,name,apFor);
+        }
+        catch (Exception e) {
+            Log.d("Exception", "e.getMessage()");
+        }
 
 	}
 	
