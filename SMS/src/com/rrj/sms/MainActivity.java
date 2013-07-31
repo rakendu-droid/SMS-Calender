@@ -37,7 +37,7 @@ public class MainActivity extends FragmentActivity implements DatePickerDialog.O
 		t1=(TextView)findViewById(R.id.textView1);
         btnDate = (Button)findViewById(R.id.btndate);
         editDate= (EditText)findViewById(R.id.date);
-        editTime=(EditText)findViewById(R.id.forr);
+        editTime=(EditText)findViewById(R.id.time);
 		b1.setOnClickListener(new OnClickListener() {
 			
 			@Override

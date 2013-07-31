@@ -38,24 +38,28 @@
             android:layout_alignBaseline="@id/name_label"
             android:layout_toRightOf="@id/name_label"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
              />
 
     <TextView
-              android:id="@+id/for_label"
+              android:id="@+id/time_label"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/time"
               android:layout_below="@id/name_label"
               android:textSize="@dimen/form_text"
-              android:layout_marginTop="20dp"/>
+              android:layout_marginTop="20dp"
+              android:layout_marginBottom="20dp"/>
 
     <EditText
-            android:id="@+id/forr"
+            android:id="@+id/time"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/for_label"
-            android:layout_toRightOf="@id/for_label"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignBaseline="@id/time_label"
+            android:layout_toRightOf="@id/time_label"
+            android:layout_alignParentRight="true"
+            android:layout_alignLeft="@id/name"
+            android:hint="HH.mm" />
 
 
     <TextView
@@ -63,9 +67,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date"
-            android:layout_below="@id/for_label"
+            android:layout_below="@id/time_label"
             android:textSize="@dimen/form_text"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_alignBaseline="@id/date_label"/>
 
     <EditText
             android:id="@+id/date"
@@ -73,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/date_label"
             android:layout_toRightOf="@id/date_label"
+            android:layout_alignLeft="@id/name"
             />
 
     <Button
@@ -81,10 +87,9 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/date"
             android:layout_alignBaseline="@id/date"
-            android:layout_marginRight="14dp"
             android:layout_marginTop="50dp"
-            android:layout_alignParentRight="true"
-            android:text="date" />
+            android:background="@drawable/calendar"
+            />
 
         <Button
         android:id="@+id/button1"
